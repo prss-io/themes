@@ -83,7 +83,8 @@ function CommandList({
     <CommandPrimitive.List
       data-slot="command-list"
       className={cn(
-        "max-h-[500px] scroll-py-1 overflow-x-hidden overflow-y-auto",
+        // Themes set --command-list-max-h to override; 300px is the common default.
+        "max-h-[var(--command-list-max-h,300px)] scroll-py-1 overflow-x-hidden overflow-y-auto",
         className
       )}
       {...props}

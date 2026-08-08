@@ -80,6 +80,10 @@ module.exports = {
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
+    // Shared source lives outside this package, so point module resolution at
+    // this theme's dependency tree: shared components compile against the same
+    // versions the theme itself uses.
+    modules: [path.resolve(__dirname, "node_modules"), "node_modules"],
     alias: {
       // Longest prefix wins, so the shared layer resolves out of the workspace
       // package while everything else stays theme-local.

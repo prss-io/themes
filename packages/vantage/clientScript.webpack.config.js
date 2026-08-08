@@ -29,6 +29,7 @@ module.exports = {
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
+    modules: [path.resolve(__dirname, "node_modules"), "node_modules"],
     alias: {
       "@/components/ui": path.resolve(__dirname, "../_shared/src/components/ui"),
       "@/hooks": path.resolve(__dirname, "../_shared/src/hooks"),

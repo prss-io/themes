@@ -1,0 +1,126 @@
+.page header.page-header {
+  user-select: none;
+  padding-top: 20px;
+}
+
+.page header.page-header .header-nav {
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #eaeaea;
+  width: 100%;
+  top: 20px;
+  transition: 0.3s background ease-in-out;
+}
+
+.page header.page-header .header-nav .navbar {
+  padding: 0;
+}
+
+.page header.page-header .header-nav .navbar-nav {
+  border-radius: 20px;
+  padding: 0 12px;
+}
+
+.page header.page-header .header-nav .navbar-nav,
+.page header.page-header .header-nav .navbar-toggler {
+  background: var(--primary-foreground);
+}
+
+.page header.page-header .header-nav .navbar-toggler {
+  border: none;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 992px) {
+  .page header.page-header .header-nav .navbar-expand-lg .navbar-toggler {
+    display: none;
+  }
+}
+
+.page header.page-header .header-nav .logo {
+  color: #eaeaea;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.page header.page-header .header-nav.scrolled .logo {
+  color: white;
+}
+
+.page header.page-header .header-nav:not(.scrolled) {
+  z-index: 10;
+}
+
+.page header.page-header .header-nav.sticky-unset {
+  background: var(--primary-foreground);
+  backdrop-filter: blur(10px);
+  animation: sticky-top-unset 0.5s forwards;
+}
+
+.page header.page-header .header-nav.scrolled {
+  background: var(--primary-foreground);
+  backdrop-filter: blur(10px);
+  animation: sticky-top-set 0.5s forwards;
+  position: fixed;
+  left: 0;
+  padding: 20px;
+  color: white;
+}
+
+.page header.page-header .header-nav .navbar-dark .navbar-toggler {
+  border: none;
+}
+
+.page header.page-header .header-nav .dropdown-menu {
+  left: unset;
+  right: 0;
+}
+
+.page header.page-header .header-nav .dropdown:hover .dropdown-menu {
+  display: block;
+  margin: 0;
+}
+
+@media (max-width: 991.98px) {
+  .page header.page-header .header-nav .navbar-collapse {
+    background: var(--primary-foreground);
+    position: absolute;
+    top: 110%;
+    width: 100%;
+    right: 0;
+    padding: 0 20px;
+    z-index: 999999999999999;
+    border-radius: 20px;
+  }
+
+  .page header.page-header .header-nav .dropdown-menu {
+    margin-bottom: 10px;
+  }
+}
+
+@keyframes sticky-top-set {
+  0% {
+    top: -100px;
+  }
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes sticky-top-unset {
+  0% {
+    background: var(--primary-foreground);
+    backdrop-filter: blur(10px);
+  }
+  100% {
+    background: transparent;
+    backdrop-filter: blur(0px);
+  }
+}

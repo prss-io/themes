@@ -1,0 +1,44 @@
+.hero {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-top: -80px;
+  padding: 70px 0 25px;
+}
+
+.hero .hero-image {
+  background-size: cover;
+  background-color: var(--primary-foreground);
+  z-index: 0;
+}
+
+.hero .hero-title {
+  font-size: 38px;
+  font-weight: 400;
+}
+
+.hero .hero-message {
+  font-size: 19px;
+  margin-top: 15px !important;
+  opacity: 0.8;
+}
+
+.hero .container {
+  z-index: 2;
+}
+
+.hero .links {
+  display: flex;
+  font-size: 18px;
+}
+
+.hero .links a {
+  color: white;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.hero .links a:hover span {
+  text-decoration: underline;
+}

@@ -1,0 +1,106 @@
+{
+    "title": "Press",
+    "type": "blog",
+    "parser": "react",
+    "isSSR": true,
+    "combinedCSS": true,
+    "clientScript": true,
+    "siteVars": {
+        "logoImageUrl": {
+            "type": "image",
+            "description": "Path for the site logo"
+        },
+        "featuredImageUrl": {
+            "type": "image",
+            "description": "Path for the post's featured image"
+        },
+        "featuredImageAlt": {
+            "type": "image",
+            "description": "Path for the post's alt featured image"
+        },
+        "heroTitle": {
+            "type": "string",
+            "description": "Hero title for the page"
+        },
+        "heroMessage": {
+            "type": "string",
+            "description": "Message that appears under the hero title"
+        },
+        "heroImageUrl": {
+            "type": "image",
+            "description": "Url for the featured image"
+        },
+        "docsImageUrl": {
+            "type": "image",
+            "description": "Image URL to show in documentation pages instead of title"
+        },
+        "faviconImageUrl": {
+            "type": "image",
+            "description": "Path for the site favicon (browser tab icon)"
+        },
+        "truncateTitleLength": {
+            "type": "string",
+            "description": "Max length for the post's title in article cards"
+        },
+        "truncateContentLength": {
+            "type": "string",
+            "description": "Max length for the post's content in article cards"
+        },
+        "sidebarMenu": {
+            "type": "string",
+            "description": "Menu to be used in the page's sidebar"
+        },
+        "asideHtml": {
+            "type": "string",
+            "description": "HTML to be used in the page's aside section"
+        },
+        "sidebarAsideHtml": {
+            "type": "string",
+            "description": "HTML to be used in the page's aside section located in the sidebar"
+        },
+        "inlineAside": {
+            "type": "string",
+            "description": "HTML to be used in the page's inline aside section"
+        },
+        "footerCta": {
+            "type": "string",
+            "description": "HTML to be used in the footer section"
+        },
+        "warningHtml": {
+            "type": "string",
+            "description": "HTML to be shown over the content"
+        },
+        "contentFooterHtml": {
+            "type": "string",
+            "description": "HTML to be shown under the content"
+        },
+        "metaDescription": {
+            "type": "string",
+            "description": "SEO: Meta description"
+        },
+        "metaLocale": {
+            "type": "string",
+            "description": "SEO: Meta locale"
+        },
+        "metaUrl": {
+            "type": "string",
+            "description": "SEO: Meta URL"
+        },
+        "metaSiteName": {
+            "type": "string",
+            "description": "SEO: Meta Site Name"
+        },
+        "metaRobots": {
+            "type": "string",
+            "description": "SEO: Meta Robots"
+        },
+        "metaTitle": {
+            "type": "string",
+            "description": "SEO: Meta Title"
+        },
+        "metaImage": {
+            "type": "string",
+            "description": "SEO: Meta Image"
+        }
+    }
+}
