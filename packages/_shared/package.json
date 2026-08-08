@@ -1,0 +1,8 @@
+{
+  "name": "@prss/theme-shared",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Component layer shared by the official PRSS themes. Consumed as source: each theme compiles it with its own toolchain and Tailwind config.",
+  "license": "MIT",
+  "main": "src/index.ts"
+}

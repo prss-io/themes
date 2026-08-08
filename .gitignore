@@ -1,0 +1,12 @@
+node_modules/
+packages/*/node_modules/
+
+# The publishable tree, assembled from packages/*/build by scripts/build-all.js.
+# Regenerated on every release, so it is not tracked. Each theme's own build/ IS
+# tracked: a sparse checkout of packages/<theme> has to be a complete, forkable
+# theme, and PRSS's theme creator reads build/manifest.json straight after clone.
+/build/
+
+*.log
+.DS_Store
+Thumbs.db
