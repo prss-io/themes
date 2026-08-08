@@ -17,7 +17,8 @@
     "themes"
   ],
   "files": [
-    "build"
+    "build",
+    "packages/_shared"
   ],
   "workspaces": [
     "packages/*"
