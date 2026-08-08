@@ -1,0 +1,11 @@
+{
+  "name": "@hodgef/blank-theme",
+  "title": "Prototype: Blank (Legacy)",
+  "version": "2.0.9",
+  "author": "Francisco Hodge",
+  "homepage": "https://github.com/prss-io/blank-theme",
+  "license": "MIT",
+  "type": "blog",
+  "parser": "react",
+  "templates": ["page"]
+}

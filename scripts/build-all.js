@@ -26,8 +26,26 @@ const listThemes = () =>
 
 const buildTheme = (theme) => {
   const cwd = path.join(packagesDir, theme);
+  const pkg = fs.readJsonSync(path.join(cwd, "package.json"));
+
+  // The blank starter ships hand-written templates and has nothing to compile.
+  if (!pkg.scripts || !pkg.scripts.build) {
+    process.stdout.write(`  ${theme} ... prebuilt\n`);
+    return;
+  }
+
   process.stdout.write(`  building ${theme} ... `);
-  execFileSync("npm", ["run", "build"], { cwd, stdio: "pipe", shell: true });
+  // Every theme's build is a plain node script. Invoking node directly avoids
+  // spawning npm through a shell, which Windows requires for .cmd shims and
+  // which would leave the arguments unescaped.
+  const script = pkg.scripts.build.trim();
+  if (!script.startsWith("node ")) {
+    throw new Error(`${theme}: expected a node build script, got "${script}"`);
+  }
+  execFileSync(process.execPath, script.slice(5).trim().split(/\s+/), {
+    cwd,
+    stdio: "pipe",
+  });
   console.log("ok");
 };
 

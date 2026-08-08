@@ -1,0 +1,33 @@
+{
+  "name": "@hodgef/blank-ssr-theme",
+  "title": "Blank SSR",
+  "version": "1.0.3",
+  "author": "Francisco Hodge",
+  "homepage": "https://github.com/prss-io/blank-ssr-theme",
+  "license": "MIT",
+  "type": "blog",
+  "parser": "react",
+  "siteVars": {
+    "beforeContent": {
+      "type": "code",
+      "description": "HTML to be used before the page's content"
+    },
+    "afterContent": {
+      "type": "code",
+      "description": "HTML to be used after the page's content"
+    },
+    "nextToContent": {
+      "type": "code",
+      "description": "HTML to be used next to the page's content"
+    }
+  },
+  "templates": [
+    "blog",
+    "card",
+    "docs",
+    "home",
+    "page",
+    "post"
+  ],
+  "isSSR": true
+}

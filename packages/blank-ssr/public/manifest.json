@@ -1,0 +1,20 @@
+{
+    "title": "Blank SSR",
+    "type": "blog",
+    "parser": "react",
+    "isSSR": true,
+    "siteVars": {
+        "beforeContent": {
+            "type": "code",
+            "description": "HTML to be used before the page's content"
+        },
+        "afterContent": {
+            "type": "code",
+            "description": "HTML to be used after the page's content"
+        },
+        "nextToContent": {
+            "type": "code",
+            "description": "HTML to be used next to the page's content"
+        }
+    }
+}

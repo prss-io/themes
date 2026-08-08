@@ -1,0 +1,1 @@
+var PRSSComponent={default:function(e){PRSS.init(e);return"";}}
