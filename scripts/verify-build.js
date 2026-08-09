@@ -13,7 +13,6 @@ const path = require("path");
 
 const root = path.resolve(__dirname, "..");
 const outDir = path.join(root, "build");
-const packagesDir = path.join(root, "packages");
 
 const problems = [];
 
@@ -24,24 +23,27 @@ const check = (theme, file) => {
 };
 
 /**
- * Source maps embed sourcesContent — the complete original TypeScript — so a
- * theme that emits them is one packaging mistake away from publishing its own
- * source. They are never used at runtime, so no theme should generate any.
+ * Source maps embed sourcesContent — the complete original TypeScript — so one
+ * reaching the published tree publishes the theme's source. Themes still emit
+ * them for local debugging, which is exactly why this checks the output rather
+ * than trusting the build to have been run the right way.
  */
-const checkNoMapsConfigured = () => {
-  const configs = ["webpack.config.js", "clientScript.webpack.config.js"];
-  fs.readdirSync(packagesDir)
-    .filter((name) => !name.startsWith("_"))
-    .forEach((theme) => {
-      configs.forEach((name) => {
-        const file = path.join(packagesDir, theme, name);
-        if (!fs.existsSync(file)) return;
-        const body = fs.readFileSync(file, "utf8");
-        const match = body.match(/devtool:\s*([^,\r\n]+)/);
-        if (match && match[1].trim() !== "false") {
-          problems.push(`${theme}/${name}: devtool must be false, found ${match[1].trim()}`);
-        }
-      });
+const checkNoMaps = (theme) => {
+  const themeDir = path.join(outDir, theme);
+
+  fs.readdirSync(themeDir)
+    .filter((name) => name.endsWith(".map"))
+    .forEach((name) => problems.push(`${theme}: ${name} must not be published`));
+
+  fs.readdirSync(themeDir)
+    .filter((name) => name.endsWith(".js") || name.endsWith(".css"))
+    .forEach((name) => {
+      const body = fs.readFileSync(path.join(themeDir, name), "utf8");
+      if (body.includes("sourcesContent")) {
+        problems.push(`${theme}: ${name} contains inlined source`);
+      } else if (body.includes("sourceMappingURL")) {
+        problems.push(`${theme}: ${name} still references a source map`);
+      }
     });
 };
 
@@ -56,15 +58,10 @@ const start = () => {
 
   if (!themes.length) throw new Error("build/ contains no themes");
 
-  checkNoMapsConfigured();
-
   themes.forEach((theme) => {
     const themeDir = path.join(outDir, theme);
 
-    // Source maps embed the original TypeScript; publishing one leaks the theme.
-    fs.readdirSync(themeDir)
-      .filter((name) => name.endsWith(".map"))
-      .forEach((name) => problems.push(`${theme}: ${name} must not be published`));
+    checkNoMaps(theme);
 
     const manifestPath = path.join(themeDir, "manifest.json");
     if (!fs.existsSync(manifestPath)) {

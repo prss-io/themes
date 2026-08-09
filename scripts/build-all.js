@@ -45,6 +45,9 @@ const buildTheme = (theme) => {
   execFileSync(process.execPath, script.slice(5).trim().split(/\s+/), {
     cwd,
     stdio: "pipe",
+    // Themes emit source maps by default so they stay debuggable; maps embed
+    // the original source, so the tree that gets published must not have any.
+    env: { ...process.env, PRSS_NO_SOURCE_MAPS: "1" },
   });
   console.log("ok");
 };

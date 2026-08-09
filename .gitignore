@@ -1,6 +1,10 @@
 node_modules/
 packages/*/node_modules/
 
+# Local builds emit source maps so themes stay debuggable. They embed the
+# original source and are never published, so they are not tracked either.
+packages/*/build/*.map
+
 # The publishable tree, assembled from packages/*/build by scripts/build-all.js.
 # Regenerated on every release, so it is not tracked. Each theme's own build/ IS
 # tracked: a sparse checkout of packages/<theme> has to be a complete, forkable

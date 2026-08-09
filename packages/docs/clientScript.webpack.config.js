@@ -4,8 +4,9 @@ const TerserPlugin = require("terser-webpack-plugin");
 module.exports = {
   mode: "production",
   entry: "./src/_common/lib/clientScript.ts",
-  // Source maps embed the original TypeScript and are never used at runtime.
-  devtool: false,
+  // Maps make local builds debuggable, but they embed the original source, so
+  // the publish build (scripts/build-all.js) turns them off.
+  devtool: process.env.PRSS_NO_SOURCE_MAPS ? false : "source-map",
   output: {
     filename: "client.js",
     path: path.resolve(__dirname, "build"),
