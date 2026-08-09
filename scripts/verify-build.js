@@ -71,9 +71,7 @@ const start = () => {
 
     const manifest = fs.readJsonSync(manifestPath);
     check(theme, "index.html");
-    check(theme, "thumbnail.png");
-    // Forking a theme swaps this in as the derived theme's thumbnail.
-    check(theme, "defaultThumbnail.png");
+    // thumbnail.png is optional — PRSS draws a generated cover when it 404s.
     if (manifest.combinedCSS) check(theme, "theme.css");
     if (manifest.clientScript) check(theme, "client.js");
 
