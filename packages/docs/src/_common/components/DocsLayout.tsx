@@ -41,7 +41,10 @@ const DocsLayout = ({
   const currentId = item.uuid;
   const rootPath = (PRSS.getProp("rootPath") as string) || "";
 
-  const { logoImageUrl, sidebarMenu, headerMenu, githubUrl, footerLeft, footerRight, warningHtml, contentFooterHtml, footerCta } = vars;
+  const { logoImageUrl, logoImageUrlDark, sidebarMenu, headerMenu, githubUrl, footerLeft, footerRight, warningHtml, contentFooterHtml, footerCta } = vars;
+  // Either variable alone is enough: whichever is set stands in for both modes.
+  const lightLogo = logoImageUrl || logoImageUrlDark;
+  const darkLogo = logoImageUrlDark || logoImageUrl;
   // Ad / sponsor slot (compatible with slate/press/landing var names).
   const asideAd = showAside ? (vars.asideHtml || vars.sidebarAsideHtml) : null;
   // The right rail carries the TOC (docs pages) and/or the ad. Pages with neither
@@ -190,8 +193,11 @@ const DocsLayout = ({
               </button>
             )}
             <a className="docs-brand" href={rootPath || "/"}>
-              {logoImageUrl ? (
-                <img className="docs-logo" src={logoImageUrl} alt={site.title} />
+              {lightLogo ? (
+                <>
+                  <img className="docs-logo docs-logo--light" src={lightLogo} alt={site.title} />
+                  <img className="docs-logo docs-logo--dark" src={darkLogo} alt={site.title} />
+                </>
               ) : (
                 <span className="docs-brand-name">{site.title}</span>
               )}

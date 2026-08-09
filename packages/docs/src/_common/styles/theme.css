@@ -112,6 +112,11 @@
 .docs-header-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .docs-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 16px; letter-spacing: -0.01em; }
 .docs-logo { height: 26px; width: auto; display: block; }
+/* Both variants ship in the markup and CSS picks one, so the logo never flashes
+   the wrong version while the stored theme is restored. */
+.docs-logo--dark { display: none; }
+.docs-theme[data-theme="dark"] .docs-logo--light { display: none; }
+.docs-theme[data-theme="dark"] .docs-logo--dark { display: block; }
 .docs-header-nav { flex: 1; display: flex; justify-content: center; }
 .docs-header-menu { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; font-size: 14px; }
 .docs-header-menu > li { position: relative; height: var(--docs-header-h); display: flex; align-items: center; }

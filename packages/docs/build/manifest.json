@@ -15,6 +15,12 @@
       "group": "Branding",
       "help": "Shown in the top-left of the header. Leave empty to use the site title."
     },
+    "logoImageUrlDark": {
+      "type": "image",
+      "label": "Logo image (dark mode)",
+      "group": "Branding",
+      "help": "Used when the site is in dark mode. Leave empty to reuse the same logo for both."
+    },
     "tagline": {
       "type": "string",
       "label": "Tagline",
