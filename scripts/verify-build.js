@@ -34,7 +34,14 @@ const start = () => {
   if (!themes.length) throw new Error("build/ contains no themes");
 
   themes.forEach((theme) => {
-    const manifestPath = path.join(outDir, theme, "manifest.json");
+    const themeDir = path.join(outDir, theme);
+
+    // Source maps embed the original TypeScript; publishing one leaks the theme.
+    fs.readdirSync(themeDir)
+      .filter((name) => name.endsWith(".map"))
+      .forEach((name) => problems.push(`${theme}: ${name} must not be published`));
+
+    const manifestPath = path.join(themeDir, "manifest.json");
     if (!fs.existsSync(manifestPath)) {
       problems.push(`${theme}: missing manifest.json`);
       return;

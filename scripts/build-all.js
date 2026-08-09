@@ -49,12 +49,31 @@ const buildTheme = (theme) => {
   console.log("ok");
 };
 
+/**
+ * Copies a theme's output into the publish tree, without source maps.
+ *
+ * Maps embed sourcesContent — the complete original TypeScript — so publishing
+ * them puts a theme's source on a public CDN regardless of how the repo is
+ * configured. They stay in packages/<theme>/build for local debugging.
+ */
 const collect = (theme) => {
   const from = path.join(packagesDir, theme, "build");
   if (!fs.existsSync(from)) {
     throw new Error(`${theme} produced no build/ output`);
   }
-  fs.copySync(from, path.join(outDir, theme));
+
+  const to = path.join(outDir, theme);
+  fs.copySync(from, to, { filter: (src) => !src.endsWith(".map") });
+
+  // Without the map, the trailing reference is just a 404 whenever devtools open.
+  fs.readdirSync(to)
+    .filter((name) => name.endsWith(".js") || name.endsWith(".css"))
+    .forEach((name) => {
+      const file = path.join(to, name);
+      const body = fs.readFileSync(file, "utf8");
+      const stripped = body.replace(/\r?\n?\/[/*]# sourceMappingURL=[^\s*]+(\s*\*\/)?\s*$/, "");
+      if (stripped !== body) fs.writeFileSync(file, stripped);
+    });
 };
 
 const start = () => {
