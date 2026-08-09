@@ -13,6 +13,7 @@ const path = require("path");
 
 const root = path.resolve(__dirname, "..");
 const outDir = path.join(root, "build");
+const packagesDir = path.join(root, "packages");
 
 const problems = [];
 
@@ -20,6 +21,28 @@ const check = (theme, file) => {
   if (!fs.existsSync(path.join(outDir, theme, file))) {
     problems.push(`${theme}: missing ${file}`);
   }
+};
+
+/**
+ * Source maps embed sourcesContent — the complete original TypeScript — so a
+ * theme that emits them is one packaging mistake away from publishing its own
+ * source. They are never used at runtime, so no theme should generate any.
+ */
+const checkNoMapsConfigured = () => {
+  const configs = ["webpack.config.js", "clientScript.webpack.config.js"];
+  fs.readdirSync(packagesDir)
+    .filter((name) => !name.startsWith("_"))
+    .forEach((theme) => {
+      configs.forEach((name) => {
+        const file = path.join(packagesDir, theme, name);
+        if (!fs.existsSync(file)) return;
+        const body = fs.readFileSync(file, "utf8");
+        const match = body.match(/devtool:\s*([^,\r\n]+)/);
+        if (match && match[1].trim() !== "false") {
+          problems.push(`${theme}/${name}: devtool must be false, found ${match[1].trim()}`);
+        }
+      });
+    });
 };
 
 const start = () => {
@@ -32,6 +55,8 @@ const start = () => {
   );
 
   if (!themes.length) throw new Error("build/ contains no themes");
+
+  checkNoMapsConfigured();
 
   themes.forEach((theme) => {
     const themeDir = path.join(outDir, theme);

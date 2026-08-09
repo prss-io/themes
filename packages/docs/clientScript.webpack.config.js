@@ -4,7 +4,8 @@ const TerserPlugin = require("terser-webpack-plugin");
 module.exports = {
   mode: "production",
   entry: "./src/_common/lib/clientScript.ts",
-  devtool: "source-map",
+  // Source maps embed the original TypeScript and are never used at runtime.
+  devtool: false,
   output: {
     filename: "client.js",
     path: path.resolve(__dirname, "build"),

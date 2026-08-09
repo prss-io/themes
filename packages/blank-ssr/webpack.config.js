@@ -18,7 +18,8 @@ const entry = glob.sync("./src/*/index.+(js|jsx|ts|tsx)")
 module.exports = {
   mode: "production",
   entry,
-  devtool: 'source-map',
+  // Source maps embed the original TypeScript and are never used at runtime.
+  devtool: false,
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'build'),
