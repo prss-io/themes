@@ -16,7 +16,7 @@ import { Menu } from "@prss/ui";
 const Header = () => {
   console.log(PRSS.getAllProps());
 
-  const { logoImageUrl, disableThemeSwitcher } = PRSS.getProp("vars");
+  const { logoImageUrl, logoImageUrlDark, disableThemeSwitcher } = PRSS.getProp("vars");
   const { title } = PRSS.getProp("site");
   const currentPostId = PRSS.getProp("item").uuid;
   const shouldDisableThemeSwitcher = disableThemeSwitcher === "true";
@@ -90,7 +90,13 @@ const Header = () => {
           <div className="flex flex-col md:flex-row items-center gap-6 justify-between w-full header-items">
             {/* Logo */}
             <a href={props.rootPath} className="flex items-center gap-2">
-              {logoImageUrl ? <img src={logoImageUrl} className="max-h-8" alt={title} /> : (
+              {logoImageUrl || logoImageUrlDark ? (
+                <>
+                  {/* Both ship and CSS picks one, so the logo cannot flash the wrong variant. */}
+                  <img src={logoImageUrl || logoImageUrlDark} className="max-h-8 dark:hidden" alt={title} />
+                  <img src={logoImageUrlDark || logoImageUrl} className="max-h-8 hidden dark:block" alt={title} />
+                </>
+              ) : (
                 <span className="text-lg font-semibold tracking-tighter">
                   {title}
                 </span>
