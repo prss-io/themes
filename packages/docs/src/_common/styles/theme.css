@@ -139,7 +139,10 @@
   width: 6px; height: 6px;
   border-right: 1.5px solid currentColor;
   border-bottom: 1.5px solid currentColor;
-  transform: rotate(45deg) translateY(-1px);
+  /* Nudge before rotating: after it, translateY runs along the rotated axis and
+     shifts the caret diagonally. The offset centres the drawn V, whose ink sits
+     in the lower half of its box. */
+  transform: translateY(-2px) rotate(45deg);
   opacity: 0.6;
 }
 /* dropdown submenu */

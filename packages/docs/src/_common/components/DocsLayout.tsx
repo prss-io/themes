@@ -26,6 +26,11 @@ const isNodeActive = (node: any, currentId: string): boolean => {
   return Array.isArray(node.children) && node.children.some((c: any) => isNodeActive(c, currentId));
 };
 
+/** Site variables arrive as strings, so a "boolean" var reads as "true", not true. */
+const isOn = (value: any) =>
+  value === true ||
+  ["true", "1", "yes", "on"].includes(String(value ?? "").trim().toLowerCase());
+
 const DocsLayout = ({
   className,
   title,
@@ -41,7 +46,7 @@ const DocsLayout = ({
   const currentId = item.uuid;
   const rootPath = (PRSS.getProp("rootPath") as string) || "";
 
-  const { logoImageUrl, logoImageUrlDark, sidebarMenu, headerMenu, githubUrl, footerLeft, footerRight, warningHtml, contentFooterHtml, footerCta } = vars;
+  const { logoImageUrl, logoImageUrlDark, sidebarMenu, headerMenu, githubUrl, footerLeft, footerRight, warningHtml, contentFooterHtml, footerCta, hidePageTitle } = vars;
   // Either variable alone is enough: whichever is set stands in for both modes.
   const lightLogo = logoImageUrl || logoImageUrlDark;
   const darkLogo = logoImageUrlDark || logoImageUrl;
@@ -308,7 +313,7 @@ const DocsLayout = ({
 
         <main className="docs-main">
           <article className="docs-article" data-docs-content>
-            {title && <h1 className="docs-page-title">{title}</h1>}
+            {title && !isOn(hidePageTitle) && <h1 className="docs-page-title">{title}</h1>}
             {warningHtml && (
               <div className="docs-warning" dangerouslySetInnerHTML={{ __html: warningHtml }} />
             )}

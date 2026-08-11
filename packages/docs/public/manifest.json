@@ -108,6 +108,12 @@
       "group": "Content",
       "help": "Optional highlighted banner shown above the content (e.g. \"This is a beta.\")."
     },
+    "hidePageTitle": {
+      "type": "boolean",
+      "label": "Hide page title",
+      "group": "Content",
+      "help": "Hides the title shown above the content. Set it on a single page to hide it just there, or site-wide to hide it everywhere."
+    },
     "embedUrl": {
       "type": "url",
       "label": "Embed URL",
