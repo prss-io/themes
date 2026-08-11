@@ -1,7 +1,7 @@
 {
   "name": "@prss/docs-theme",
   "title": "Docs",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Documentation theme for PRSS with an automatic sidebar, on-this-page navigation, copyable code blocks and a light/dark toggle.",
   "main": "build/index.js",
   "scripts": {
@@ -41,5 +41,6 @@
     "mini-css-extract-plugin": "2.10.2",
     "terser-webpack-plugin": "5.6.1",
     "webpack": "5.109.2"
-  }
+  },
+  "private": true
 }

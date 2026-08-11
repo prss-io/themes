@@ -64,5 +64,6 @@
   },
   "files": [
     "build"
-  ]
+  ],
+  "private": true
 }

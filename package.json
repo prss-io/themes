@@ -1,6 +1,6 @@
 {
   "name": "@prss/themes",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Official PRSS themes, published as a single package served over CDN.",
   "license": "MIT",
   "author": "Francisco Hodge <hello@franciscohodge.com> (https://github.com/hodgef)",

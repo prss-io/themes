@@ -14,8 +14,8 @@
   },
   "homepage": "https://github.com/prss-io/blank-theme",
   "keywords": [],
-  "devDependencies": {},
   "files": [
     "build"
-  ]
+  ],
+  "private": true
 }

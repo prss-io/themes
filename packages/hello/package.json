@@ -1,6 +1,6 @@
 {
   "name": "@prss/hello-theme",
-  "version": "1.3.4",
+  "version": "1.4.0",
   "description": "Hello Theme for PRSS",
   "main": "build/index.js",
   "scripts": {
@@ -129,5 +129,6 @@
   },
   "files": [
     "build"
-  ]
+  ],
+  "private": true
 }

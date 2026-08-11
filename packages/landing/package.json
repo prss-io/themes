@@ -129,5 +129,6 @@
   },
   "files": [
     "build"
-  ]
+  ],
+  "private": true
 }
