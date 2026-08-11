@@ -102,7 +102,6 @@ const Header = () => {
                 </span>
               )}
             </a>
-            <span className="local-override-badge text-xs font-semibold text-primary" data-testid="local-override-badge">Point local override ✔</span>
             <div className="flex items-center header-nav">
               <NavigationMenu>
                 <NavigationMenuList className="mb-0">

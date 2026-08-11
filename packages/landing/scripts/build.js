@@ -21,7 +21,7 @@ const {
   author = "",
 } = getPackageJson();
 
-const { title, type, parser, siteVars, isSSR, combinedCSS, clientScript } = manifest;
+const { title, type, parser, siteVars, isSSR, combinedCSS, clientScript, search } = manifest;
 
 config.plugins.push(function () {
   this.hooks.done.tapAsync("done", function (stats, callback) {
@@ -83,7 +83,8 @@ const start = async () => {
       templates,
       isSSR,
       combinedCSS,
-      clientScript
+      clientScript,
+      search
     }
 
     fs.writeFileSync(manifestFile, JSON.stringify(newManifest, null, 2));

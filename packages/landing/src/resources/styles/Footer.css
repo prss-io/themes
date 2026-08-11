@@ -14,6 +14,29 @@
   color: inherit;
 }
 
+/* Footer links come from a site variable, so they arrive as bare spans. Space
+   them out and keep them secondary to the page. */
+.page footer.page-footer .col:first-child > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 1.75rem;
+}
+
+.page footer.page-footer .col:first-child > div > span {
+  margin: 0 !important;
+}
+
+.page footer.page-footer a:not(.footer-shoutout) {
+  font-size: 14px;
+  color: #55555f;
+  text-decoration: none;
+}
+
+.page footer.page-footer a:not(.footer-shoutout):hover {
+  color: #14141a;
+}
+
 .page footer.page-footer .footer-shoutout span {
   line-height: 16px;
 }

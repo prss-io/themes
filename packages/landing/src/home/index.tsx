@@ -31,7 +31,7 @@ const Home = data => {
 
   return (
     <Page className="page-home">
-      <Header />
+      <Header isHome />
       <Hero
         imageUrl={heroImageUrl}
         afterComponent={

@@ -5,7 +5,19 @@
     "isSSR": true,
     "combinedCSS": true,
     "clientScript": true,
+    "search": true,
     "siteVars": {
+        "headerSearch": {
+            "type": "select",
+            "label": "Header search",
+            "group": "Navigation",
+            "help": "The home page hides search by default so the call to action stays the focus.",
+            "options": [
+                { "value": "not-home", "label": "Every page except the home page" },
+                { "value": "all", "label": "Every page" },
+                { "value": "off", "label": "Hidden" }
+            ]
+        },
         "logoImageUrl": {
             "type": "image",
             "description": "Path for the site logo"

@@ -147,3 +147,182 @@
     backdrop-filter: blur(0px);
   }
 }
+
+/* ---- Search ---- */
+/* The trigger sits with the nav links, quieter than them: it is a tool, not a
+   destination. */
+.page header.page-header .site-search-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  margin-left: 10px;
+  padding: 0 10px;
+  border: 1px solid #ececef;
+  border-radius: 8px;
+  background: transparent;
+  color: #55555f;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease-out, color 0.15s ease-out,
+    border-color 0.15s ease-out;
+}
+
+.page header.page-header .site-search-trigger:hover {
+  background: #f4f4f6;
+  border-color: #d9d9de;
+  color: #14141a;
+}
+
+.page header.page-header .site-search-trigger-label {
+  line-height: 1;
+}
+
+.page header.page-header .site-search-kbd {
+  padding: 2px 6px;
+  border: 1px solid #ececef;
+  border-radius: 5px;
+  font-size: 0.72rem;
+  line-height: 1;
+  color: #87878f;
+}
+
+/* The label costs more than it earns on a narrow header; the icon still reads. */
+@media (max-width: 640px) {
+  .page header.page-header .site-search-trigger {
+    padding: 0 9px;
+  }
+
+  .page header.page-header .site-search-trigger-label,
+  .page header.page-header .site-search-kbd {
+    display: none;
+  }
+}
+
+.page .site-search[hidden] {
+  display: none;
+}
+
+.page .site-search {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 12vh 16px 16px;
+}
+
+.page .site-search-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(16, 24, 40, 0.45);
+  backdrop-filter: blur(2px);
+}
+
+body.site-search-open {
+  overflow: hidden;
+}
+
+.page .site-search-panel {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  background: #fff;
+  border: 1px solid #ececef;
+  border-radius: 14px;
+  box-shadow: 0 24px 60px -12px rgba(16, 24, 40, 0.28);
+  overflow: hidden;
+}
+
+.page .site-search-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #ececef;
+  color: #87878f;
+}
+
+.page .site-search-input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: #14141a;
+  font: inherit;
+  font-size: 1rem;
+  outline: none;
+}
+
+.page .site-search-input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.page .site-search-esc {
+  border: 1px solid #ececef;
+  border-radius: 5px;
+  background: transparent;
+  color: #87878f;
+  font: inherit;
+  font-size: 0.72rem;
+  padding: 3px 7px;
+  cursor: pointer;
+}
+
+.page .site-search-results {
+  max-height: min(60vh, 460px);
+  overflow-y: auto;
+}
+
+.page .site-search-results:empty {
+  display: none;
+}
+
+.page .site-search-result {
+  display: block;
+  padding: 12px 16px;
+  border-bottom: 1px solid #f2f2f4;
+  color: #14141a;
+  text-decoration: none;
+}
+
+.page .site-search-result:last-child {
+  border-bottom: 0;
+}
+
+.page .site-search-result:hover,
+.page .site-search-result.is-active {
+  background: #f6f6f8;
+  color: #14141a;
+  text-decoration: none;
+}
+
+.page .site-search-result-title {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.page .site-search-result-section {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.78rem;
+  color: #55555f;
+}
+
+.page .site-search-result-excerpt {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: #55555f;
+}
+
+.page .site-search-empty {
+  margin: 0;
+  padding: 20px 16px;
+  color: #55555f;
+  font-size: 0.9rem;
+}
