@@ -252,35 +252,39 @@
   margin: 30px 0;
 }
 
+/* The list reads as rows of writing, not a wall of boxes: no card chrome, a
+   hairline between entries, and a thumbnail that keeps its own rounded corners
+   instead of being clipped flat against a card edge. */
 .page.page-blog .card {
-  border: 1px solid #e8e8ea;
-  border-radius: 14px;
-  margin-bottom: 14px;
-  overflow: hidden;
-  background: #fff;
-  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out,
-    border-color 0.2s ease-in-out;
+  border: none;
+  border-bottom: 1px solid #ececef;
+  border-radius: 0;
+  margin-bottom: 0;
+  overflow: visible;
+  background: transparent;
+  padding: 20px 0;
+  gap: 20px;
+  transition: none;
 }
 
 .page.page-blog .card:hover {
-  border-color: #d8d8dd;
-  box-shadow: 0 10px 24px rgba(16, 24, 40, 0.08);
-  transform: translateY(-2px);
+  border-color: #ececef;
+  box-shadow: none;
+  transform: none;
 }
 
 .page.page-blog .card:last-child {
-  border-bottom: 1px solid #e8e8ea;
-  margin-bottom: 0;
+  border-bottom: none;
 }
 
 .page.page-blog .card .card-body {
-  padding: 16px 18px;
+  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-/* Two lines, always reserved: a long headline wrapping must not make its card
+/* Two lines, always reserved: a long headline wrapping must not make its row
    taller than the one beside it. */
 .page.page-blog .card a.card-title {
   font-size: 18px;
@@ -298,7 +302,7 @@
   text-underline-offset: 3px;
 }
 
-/* Excerpts vary wildly in length; two lines, always reserved, keeps every card
+/* Excerpts vary wildly in length; two lines, always reserved, keeps every row
    the same shape whether the excerpt runs short or long. */
 .page.page-blog .card .card-text {
   font-size: 15px;
@@ -345,15 +349,19 @@
   transform: translateX(4px);
 }
 
-/* Taking the image out of flow stops a tall thumbnail from stretching its card:
-   every card's height then comes from the (clamped) text alone. */
+/* A fixed 16:10 frame: the thumbnail keeps one shape across the list and rounds
+   on all four corners, rather than being clipped by the row. */
 .page.page-blog .blog-items .card-img-left {
   position: relative;
-  flex: 0 0 180px;
-  width: 180px;
-  max-width: 180px;
-  min-height: 130px;
-  align-self: stretch;
+  flex: 0 0 190px;
+  width: 190px;
+  max-width: 190px;
+  aspect-ratio: 16 / 10;
+  min-height: 0;
+  align-self: flex-start;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #f4f4f6;
 }
 
 .page.page-blog .blog-items .card-img-left img {
