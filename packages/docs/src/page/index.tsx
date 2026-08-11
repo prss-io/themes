@@ -12,7 +12,7 @@ const Page = (data: any) => {
 
   return (
     <DocsLayout className="page-single" title={title} showSidebar={false} showToc={false}>
-      <ContentRenderer content={body} className="docs-prose" />
+      <ContentRenderer content={content} className="docs-prose" />
     </DocsLayout>
   );
 };
