@@ -636,18 +636,69 @@
   backface-visibility: hidden;
   flex-flow: column;
   align-items: center;
-  background-color: #ececec;
+  background-color: #14141a;
   box-shadow: 0 0px 15px #f1f1f1;
+}
+
+/* A tinted wash over the hero photo instead of a flat grey veil: the image still
+   reads, and the text sits on a dark enough base to stay legible. */
+.page.page-home .hero::before {
+  background: linear-gradient(160deg, rgba(20, 20, 26, 0.88) 0%, rgba(29, 27, 38, 0.82) 45%, rgba(20, 20, 26, 0.92) 100%);
 }
 
 .page.page-home .hero .hero-text {
   text-align: center;
-  max-width: 700px;
+  max-width: 760px;
   margin: 120px auto 120px;
+}
+
+.page.page-home .hero .hero-title {
+  font-size: clamp(2.4rem, 5.4vw, 4rem);
+  line-height: 1.07;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.page.page-home .hero .hero-message {
+  font-size: clamp(1.05rem, 1.7vw, 1.3rem);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.78);
+  max-width: 46ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page.page-home .hero .dl-btns a,
+.page.page-home .hero .cta-btn {
+  border-radius: 12px;
+  font-weight: 600;
+  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+
+.page.page-home .hero .dl-btns a:hover,
+.page.page-home .hero .cta-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+}
+
+.page.page-home .hero .hero-showcase-image img {
+  border-radius: 14px 14px 0 0;
+  box-shadow: 0 -10px 60px rgba(0, 0, 0, 0.35);
 }
 
 .page.page-home .hero .hero-showcase-image {
   z-index: 1;
+}
+
+/* Vertical rhythm between the home page's block sections, whichever blocks a
+   site happens to use. */
+.page.page-home main .content .post-inner-content > * {
+  margin-bottom: 4.5rem;
+}
+
+.page.page-home main .content .post-inner-content > *:last-child {
+  margin-bottom: 0;
 }
 
 /* Home sections built from Columns blocks: text one side, screenshot the other,
@@ -657,42 +708,58 @@
    not move. */
 .page.page-home main .content .columns.row {
   align-items: center;
-  padding: 2.5rem;
-  margin-bottom: 3.5rem;
-  border-radius: 20px;
+  padding: 3.25rem;
+  margin-bottom: 2rem;
+  border-radius: 24px;
+  border: 1px solid #ececef;
+  background-color: #fff;
 }
 
 .page.page-home main .content .columns.row:nth-of-type(odd) {
-  background-color: #f5f5f5;
+  background-color: #fafafb;
 }
 
 .page.page-home main .content .columns.row > .column {
   min-width: 0;
-  padding: 0 1.5rem;
+  padding: 0 1.75rem;
   display: flex;
   flex-flow: column;
   justify-content: center;
 }
 
 .page.page-home main .content .columns.row h2 {
-  font-size: 34px;
-  line-height: 1.2;
-  font-weight: 600;
-  margin-bottom: 1rem;
+  font-size: clamp(1.6rem, 2.6vw, 2.15rem);
+  line-height: 1.18;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #14141a;
+  margin-bottom: 0.85rem;
 }
 
 .page.page-home main .content .columns.row p {
-  font-size: 18px;
-  line-height: 1.6;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: #55555f;
   margin-bottom: 0;
+  max-width: 46ch;
 }
 
 .page.page-home main .content .columns.row img {
   width: 100%;
   height: auto;
-  border-radius: 7px;
-  background: #fffbea;
-  box-shadow: 0 9px 5px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid #ececef;
+  box-shadow: 0 18px 38px rgba(16, 24, 40, 0.1);
+}
+
+/* The closing heading is a section title, not a paragraph heading. */
+.page.page-home main .content > h2:last-child {
+  text-align: center;
+  font-size: clamp(1.75rem, 3vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-top: 4rem;
 }
 
 @media (max-width: 767px) {
@@ -947,11 +1014,13 @@
   filter: invert(1);
 }
 
+/* Header, title, featured image and body all share one measure, so the logo,
+   the headline and the first paragraph line up on the same left edge. */
 .page.page-post header.page-header .header-nav .container,
 .page.page-single header.page-header .header-nav .container,
 .page.page-post .post-header .container,
 .page.page-single .post-header .container {
-  max-width: 52rem;
+  max-width: 46rem;
 }
 
 .page.page-post header.page-header .header-nav .navbar,
@@ -1029,7 +1098,38 @@
 }
 
 /* One centred measure for the whole article: the header text, the featured
-   image and the body all sit on the same column instead of hugging the left. */
+   image and the body all sit on the same column instead of hugging the left.
+   The body uses the same container as the header, so both pick up the same
+   gutter and their left edges match exactly. */
+.page.page-post main .main-container,
+.page.page-single main .main-container {
+  max-width: 46rem;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* The grid's gutters and the section's own inset would each shift the body off
+   the header's edge; zero both so one measure governs the whole article. */
+.page.page-post main .main-container > .row,
+.page.page-single main .main-container > .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.page.page-post main .main-container > .row > .col,
+.page.page-single main .main-container > .row > .col {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.page.page-post main .main-container .post-content,
+.page.page-single main .main-container .post-content {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
 .page.page-post .post-inner-content,
 .page.page-single .page__content,
 .page.page-single .post-inner-content {
