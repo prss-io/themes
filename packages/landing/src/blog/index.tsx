@@ -41,12 +41,14 @@ const Blog = data => {
     <Page className="page-blog">
       <Header />
       {(heroTitle || title) && (
-        <Hero imageUrl={heroImageUrl} heroClass={heroClass}>
-          <h1 className="hero-title">{heroTitle || title}</h1>
-          {heroMessage && (
-            <div className="hero-message mt-2">{heroMessage}</div>
-          )}
-        </Hero>
+        <header className="post-header">
+          <div className="container">
+            <h1 className="post-header__title">{heroTitle || title}</h1>
+            {heroMessage && (
+              <p className="post-header__summary">{heroMessage}</p>
+            )}
+          </div>
+        </header>
       )}
       <main>
         <div className="container main-container">

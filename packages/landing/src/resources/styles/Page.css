@@ -701,6 +701,45 @@
   margin-bottom: 0;
 }
 
+/* Block sections carry their own defaults from @prss/ui; these tie them to the
+   theme so a blocks-built page does not read as a different site. */
+.page.page-home .cards-block__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f4f4f6;
+  color: #14141a;
+  font-size: 20px;
+  margin-bottom: 1rem;
+}
+
+.page.page-home [class*='timeline'] .timeline-line,
+.page.page-home [class*='timeline'] [class*='line'] {
+  background-color: #d9d9de;
+}
+
+.page.page-home [class*='timeline'] [class*='dot'],
+.page.page-home [class*='timeline'] [class*='marker'] {
+  background-color: #14141a;
+  border-color: #14141a;
+}
+
+.page.page-home [class*='timeline'] [class*='date'],
+.page.page-home [class*='timeline'] [class*='badge'] {
+  background: #f4f4f6;
+  color: #55555f;
+  border-radius: 999px;
+}
+
+/* Section intros should sit under their heading, not float to the middle. */
+.page.page-home .cards-block__description,
+.page.page-home [class*='timeline'] [class*='description']:first-of-type {
+  text-align: left;
+}
+
 /* Home sections built from Columns blocks: text one side, screenshot the other,
    alternating by putting the image block first. Deliberately static — an
    entrance animation here left sections invisible wherever animations are
@@ -980,12 +1019,37 @@
 
 /* Reading rhythm for article and guide bodies: a measure that does not run the
    full container width, and headings that separate sections on their own. */
-/* Editorial article header. The title sits on the page and the featured image
+/* Editorial header, shared by articles, pages and the blog index so the three do
+   not each invent their own. The title sits on the page and the featured image
    below it at full strength — no dimming overlay, so nothing needs fading out. */
 .page.page-post .post-header,
-.page.page-single .post-header {
+.page.page-single .post-header,
+.page.page-blog .post-header {
   background: #fff;
   padding: 3.5rem 0 0;
+}
+
+.page.page-blog .post-header {
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #ececef;
+  margin-bottom: 2.5rem;
+}
+
+.page.page-blog .post-header__title {
+  font-size: clamp(2rem, 4.4vw, 3.15rem);
+  line-height: 1.12;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #14141a;
+  margin: 0;
+}
+
+.page.page-blog .post-header__summary {
+  margin-top: 1rem;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: #55555f;
+  max-width: 58ch;
 }
 
 /* Without a dark hero behind it the header would be white-on-white, so article
@@ -1018,13 +1082,16 @@
    the headline and the first paragraph line up on the same left edge. */
 .page.page-post header.page-header .header-nav .container,
 .page.page-single header.page-header .header-nav .container,
+.page.page-blog header.page-header .header-nav .container,
 .page.page-post .post-header .container,
-.page.page-single .post-header .container {
+.page.page-single .post-header .container,
+.page.page-blog .post-header .container {
   max-width: 46rem;
 }
 
 .page.page-post header.page-header .header-nav .navbar,
-.page.page-single header.page-header .header-nav .navbar {
+.page.page-single header.page-header .header-nav .navbar,
+.page.page-blog header.page-header .header-nav .navbar {
   margin-left: 0 !important;
   margin-right: 0 !important;
   padding-left: 0;

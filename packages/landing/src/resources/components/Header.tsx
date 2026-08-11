@@ -20,9 +20,9 @@ const Header: FunctionComponent<IProps> = ({
   const currentPost = PRSS.getProp('item');
   const currentPostId = currentPost.uuid;
 
-  // Articles and pages have a white header, where a logo drawn for a dark hero
-  // would disappear.
-  const isLightHeader = ['post', 'page'].includes(currentPost.template);
+  // Only the home page has a dark hero behind the nav; everywhere else it sits
+  // on the page, where a logo drawn for a dark hero would disappear.
+  const isLightHeader = currentPost.template !== 'home';
   const logoSrc = (isLightHeader && logoImageUrlLight) || logoImageUrl;
 
   const [scrollTop, setScrollTop] = useState(0);
