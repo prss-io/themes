@@ -1845,6 +1845,9 @@ html { scrollbar-gutter: stable; overflow-y: scroll; }
   border: 1px solid var(--border);
   border-radius: var(--docs-radius);
   color: var(--text);
+  /* Default stretch leaves the logo pinned to the top of its full-height cell,
+     while the copy self-centres — so the two read as misaligned. */
+  align-items: center;
 }
 .docs-theme .banner-container .banner-content a.banner-title { color: var(--text); }
 .docs-theme .banner-container a:not(.banner-title) { color: var(--accent); }
