@@ -92,16 +92,19 @@ const Blog = data => {
                               <p className="card-text">{post?.content}</p>
                             )}
 
-                            {post?.createdAt && (
-                              <p className="card-text">
+                            <div className="card-meta">
+                              {post?.createdAt && (
                                 <small
                                   className="text-muted"
                                   title={PRSS.formattedDate(post?.createdAt)}
                                 >
-                                  Posted {PRSS.formattedDate(post?.createdAt)}
+                                  {PRSS.formattedDate(post?.createdAt)}
                                 </small>
-                              </p>
-                            )}
+                              )}
+                              <a className="card-readmore" href={post?.url}>
+                                Read more
+                              </a>
+                            </div>
                           </div>
                         </div>
                       );
