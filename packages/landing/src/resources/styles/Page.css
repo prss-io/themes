@@ -672,13 +672,13 @@
   margin: 0;
 }
 
+/* No forced centring here: the message follows whatever alignment the hero text
+   block uses, so a site that switches the hero to the left does not end up with
+   a left title above a centred paragraph. */
 .page.page-home .hero .hero-message {
   font-size: clamp(1.05rem, 1.7vw, 1.3rem);
   line-height: 1.55;
   color: #55555f;
-  max-width: 46ch;
-  margin-left: auto;
-  margin-right: auto;
   opacity: 1;
 }
 
@@ -703,6 +703,18 @@
   font-weight: 600;
   transition: transform 0.15s ease-out, box-shadow 0.15s ease-out,
     background-color 0.15s ease-out, color 0.15s ease-out;
+}
+
+/* Download and platform picker are one split control, not two buttons. */
+.page.page-home .hero .dl-btns a.dl-btn {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.page.page-home .hero .dl-btns a.platform-selector {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: none;
 }
 
 .page.page-home .hero .dl-btns a:hover,
