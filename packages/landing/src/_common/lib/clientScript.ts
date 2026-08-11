@@ -13,3 +13,4 @@ document.querySelector(".toggle-dark-mode")?.addEventListener("click", function 
   document.body.classList.toggle("dark");
   localStorage.setItem("dark-mode", document.body.classList.contains("dark") ? "true" : "false");
 });
+
