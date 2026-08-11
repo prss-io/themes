@@ -20,10 +20,10 @@ const Header: FunctionComponent<IProps> = ({
   const currentPost = PRSS.getProp('item');
   const currentPostId = currentPost.uuid;
 
-  // Only the home page has a dark hero behind the nav; everywhere else it sits
-  // on the page, where a logo drawn for a dark hero would disappear.
-  const isLightHeader = currentPost.template !== 'home';
-  const logoSrc = (isLightHeader && logoImageUrlLight) || logoImageUrl;
+  // One header across the site. It sits on the page rather than over a dark
+  // hero, so the light-mode logo is the right one everywhere.
+  const isLightHeader = true;
+  const logoSrc = logoImageUrlLight || logoImageUrl;
 
   const [scrollTop, setScrollTop] = useState(0);
   const [stickyEnabled, setStickyEnabled] = useState(false);
