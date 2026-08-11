@@ -744,9 +744,10 @@
   margin-bottom: 0;
 }
 
-/* Block sections carry their own defaults from @prss/ui; these tie them to the
-   theme so a blocks-built page does not read as a different site. */
-.page.page-home .cards-block__icon {
+/* Block sections carry their own defaults from @prss/ui — including a stock blue
+   accent that belongs to no theme. Tie them to this one so a blocks-built page
+   does not read as a different site. */
+.page .cards-block__icon {
   width: 44px;
   height: 44px;
   border-radius: 12px;
@@ -759,28 +760,59 @@
   margin-bottom: 1rem;
 }
 
-.page.page-home [class*='timeline'] .timeline-line,
-.page.page-home [class*='timeline'] [class*='line'] {
-  background-color: #d9d9de;
+/* Link lists get the same card treatment as the card grid, so an index page and
+   a feature grid look like the same design. */
+.page .link-list-container {
+  background: transparent !important;
 }
 
-.page.page-home [class*='timeline'] [class*='dot'],
-.page.page-home [class*='timeline'] [class*='marker'] {
-  background-color: #14141a;
-  border-color: #14141a;
+.page .link-list-items {
+  padding: 0 !important;
 }
 
-.page.page-home [class*='timeline'] [class*='date'],
-.page.page-home [class*='timeline'] [class*='badge'] {
-  background: #f4f4f6;
-  color: #55555f;
-  border-radius: 999px;
+.page .link-item {
+  border: 1px solid #ececef !important;
+  border-radius: 14px !important;
+  padding: 1.15rem 1.25rem !important;
+  background: #fff;
+  transition: border-color 0.15s ease-out, box-shadow 0.15s ease-out,
+    transform 0.15s ease-out;
 }
 
-/* Section intros should sit under their heading, not float to the middle. */
-.page.page-home .cards-block__description,
-.page.page-home [class*='timeline'] [class*='description']:first-of-type {
-  text-align: left;
+.page .link-item:hover {
+  border-color: #d9d9de !important;
+  box-shadow: 0 10px 24px rgba(16, 24, 40, 0.08);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+.page .link-item-title {
+  color: #14141a !important;
+  font-weight: 600;
+  font-size: 1.02rem;
+}
+
+.page .link-item-description {
+  color: #55555f !important;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-top: 0.3rem;
+}
+
+.page .link-list-header {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Timeline: a quiet rail and dark markers rather than the default blue. */
+.page [class*='timeline'] .bg-current,
+.page [class*='timeline'] [class*='rounded-full'] {
+  background-color: #14141a !important;
+  color: #14141a !important;
+}
+
+.page [class*='timeline'] [class*='border-l'] {
+  border-left-color: #e4e4e8 !important;
 }
 
 /* Home sections built from Columns blocks: text one side, screenshot the other,

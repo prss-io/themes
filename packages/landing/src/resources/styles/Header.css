@@ -81,6 +81,28 @@
 .page header.page-header .header-nav .dropdown-menu {
   left: unset;
   right: 0;
+  border: 1px solid #ececef;
+  border-radius: 14px;
+  padding: 6px;
+  margin-top: 8px;
+  min-width: 220px;
+  box-shadow: 0 18px 38px rgba(16, 24, 40, 0.12);
+  background: #fff;
+}
+
+.page header.page-header .header-nav .dropdown-menu .dropdown-item {
+  border-radius: 9px;
+  padding: 0.55rem 0.75rem;
+  font-size: 15px;
+  font-weight: 500;
+  color: #14141a;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.page header.page-header .header-nav .dropdown-menu .dropdown-item:hover,
+.page header.page-header .header-nav .dropdown-menu .dropdown-item:focus {
+  background-color: #f4f4f6;
+  color: #14141a;
 }
 
 .page header.page-header .header-nav .dropdown:hover .dropdown-menu {
