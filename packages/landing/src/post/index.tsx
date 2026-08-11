@@ -36,38 +36,50 @@ const Post = data => {
   return (
     <Page className="page-post">
       <Header />
-      {(postTitle || heroTitle) && (
-        <Hero imageUrl={featuredImageUrl || heroImageUrl} heroClass={heroClass}>
-          <div>
-            {(postTitle || heroTitle) && (
-              <h1 className="hero-title">{postTitle || heroTitle}</h1>
-            )}
-            {createdAt && (
-              <div
-                className="mt-3 date post-date d-flex align-items-center"
-                title={PRSS.formattedDate(createdAt)}
-              >
-                <i className={`fa fa-clock-o mr-2`}></i>
-                <span>Published on {PRSS.formattedDate(createdAt)}</span>
-              </div>
-            )}
-          </div>
-          {featuredImageUrl && featuredImageAuthor && (
-            <div className="hero-image-author">
-              Photo by{' '}
-              {featuredImageAuthorLink && (
-                <a
-                  href={featuredImageAuthorLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {featuredImageAuthor} via Pexels
-                </a>
-              )}
+      {/* Editorial header: the title reads on the page and the featured image
+          sits below it at full strength, rather than behind dimmed text. */}
+      <header className="post-header">
+        <div className="container">
+          {(postTitle || heroTitle) && (
+            <h1 className="post-header__title">{postTitle || heroTitle}</h1>
+          )}
+          {createdAt && (
+            <div
+              className="post-header__meta"
+              title={PRSS.formattedDate(createdAt)}
+            >
+              {PRSS.formattedDate(createdAt)}
             </div>
           )}
-        </Hero>
-      )}
+          {/* The site-wide hero image is not this post's image; showing only a
+              featured image keeps unrelated stock art off every article. */}
+          {featuredImageUrl && (
+            <figure className="post-header__figure">
+              <img
+                src={featuredImageUrl}
+                alt={postTitle || heroTitle || ''}
+              />
+              {featuredImageUrl && featuredImageAuthor && (
+                <figcaption className="post-header__credit">
+                  Photo by{' '}
+                  {featuredImageAuthorLink ? (
+                    <a
+                      href={featuredImageAuthorLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {featuredImageAuthor}
+                    </a>
+                  ) : (
+                    featuredImageAuthor
+                  )}{' '}
+                  via Pexels
+                </figcaption>
+              )}
+            </figure>
+          )}
+        </div>
+      </header>
       <main>
         <div className="container main-container">
           <div className="row">

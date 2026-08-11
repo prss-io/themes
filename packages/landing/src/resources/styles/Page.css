@@ -913,10 +913,129 @@
 
 /* Reading rhythm for article and guide bodies: a measure that does not run the
    full container width, and headings that separate sections on their own. */
+/* Editorial article header. The title sits on the page and the featured image
+   below it at full strength — no dimming overlay, so nothing needs fading out. */
+.page.page-post .post-header,
+.page.page-single .post-header {
+  background: #fff;
+  padding: 3.5rem 0 0;
+}
+
+/* Without a dark hero behind it the header would be white-on-white, so article
+   pages get a light bar with the light-mode logo, and its container matches the
+   article measure so the logo lines up with the title. */
+.page header.page-header .header-nav--light {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #ececef;
+  top: 0;
+  padding-bottom: 0;
+}
+
+.page header.page-header .header-nav--light .nav-link,
+.page header.page-header .header-nav--light .navbar-brand {
+  color: #14141a;
+}
+
+.page header.page-header .header-nav--light .nav-link:hover,
+.page header.page-header .header-nav--light .nav-item.active .nav-link {
+  color: #14141a;
+  background-color: #f1f1f4;
+}
+
+.page header.page-header .header-nav--light .navbar-toggler-icon {
+  filter: invert(1);
+}
+
+.page.page-post header.page-header .header-nav .container,
+.page.page-single header.page-header .header-nav .container,
+.page.page-post .post-header .container,
+.page.page-single .post-header .container {
+  max-width: 52rem;
+}
+
+.page.page-post header.page-header .header-nav .navbar,
+.page.page-single header.page-header .header-nav .navbar {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.page.page-post .post-header__title,
+.page.page-single .post-header__title {
+  font-size: clamp(2rem, 4.4vw, 3.15rem);
+  line-height: 1.12;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #14141a;
+  margin: 0;
+}
+
+.page.page-post .post-header__meta,
+.page.page-single .post-header__meta {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: #6b6b76;
+}
+
+.page.page-single .post-header__summary {
+  margin-top: 1rem;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: #55555f;
+  max-width: 58ch;
+}
+
+.page.page-post .post-header__figure,
+.page.page-single .post-header__figure {
+  margin: 2.25rem 0 0;
+}
+
+.page.page-post .post-header__figure img,
+.page.page-single .post-header__figure img {
+  display: block;
+  width: 100%;
+  max-height: 460px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.page.page-post .post-header__credit,
+.page.page-single .post-header__credit {
+  margin-top: 0.6rem;
+  font-size: 0.78rem;
+  color: #8a8a94;
+  text-align: right;
+}
+
+.page.page-post .post-header__credit a,
+.page.page-single .post-header__credit a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+@media (max-width: 767px) {
+  .page.page-post .post-header,
+  .page.page-single .post-header {
+    padding-top: 2.25rem;
+  }
+
+  .page.page-post .post-header__figure img,
+  .page.page-single .post-header__figure img {
+    max-height: 260px;
+    border-radius: 12px;
+  }
+}
+
+/* One centred measure for the whole article: the header text, the featured
+   image and the body all sit on the same column instead of hugging the left. */
 .page.page-post .post-inner-content,
 .page.page-single .page__content,
 .page.page-single .post-inner-content {
   max-width: 46rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .page.page-post .post-inner-content > p,
@@ -951,6 +1070,16 @@
   margin: 1.25rem 0;
   padding-left: 1.35rem;
   list-style: revert;
+}
+
+/* Page bodies used to box every list item, which reads as a stack of cards with
+   a stray bullet beside each one. Block content gets plain lists. */
+.page.page-post .post-inner-content li,
+.page.page-single .post-inner-content li {
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  counter-increment: none;
 }
 
 .page.page-post .post-inner-content li,

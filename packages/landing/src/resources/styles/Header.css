@@ -4,7 +4,7 @@
 }
 
 .page header.page-header .header-nav {
-  height: 80px;
+  height: 66px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -17,14 +17,44 @@
 
 .page header.page-header .header-nav .logo {
   color: white;
-  font-size: 25px;
-  font-weight: 500;
-  max-width: 160px;
+  font-size: 20px;
+  font-weight: 600;
+  max-width: 118px;
+  display: flex;
+  align-items: center;
+  padding: 0;
 }
 
 .page header.page-header .header-nav .logo img {
   max-width: 100%;
+  max-height: 28px;
+  width: auto;
   height: auto;
+}
+
+/* Nav links read as controls: a quiet pill on hover instead of bare text. */
+.page header.page-header .header-nav .navbar-nav {
+  gap: 2px;
+  align-items: center;
+}
+
+.page header.page-header .header-nav .nav-link {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  padding: 0.45rem 0.8rem;
+  border-radius: 8px;
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.page header.page-header .header-nav:not(.header-nav--light) .nav-link {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.page header.page-header .header-nav:not(.header-nav--light) .nav-link:hover,
+.page header.page-header .header-nav:not(.header-nav--light) .nav-item.active .nav-link {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.12);
 }
 
 .page header.page-header .header-nav:not(.scrolled) {

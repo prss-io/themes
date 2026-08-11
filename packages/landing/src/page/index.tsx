@@ -11,7 +11,7 @@ const Card = data => {
   PRSS.init(data);
   (window as any).PRSS = PRSS;
 
-  const { heroMessage, heroImageUrl, heroTitle, heroClass } = PRSS.getProp(
+  const { heroMessage, featuredImageUrl, heroTitle } = PRSS.getProp(
     'vars'
   ) as IVars;
   const { content, title: postTitle } = PRSS.getProp('item');
@@ -21,9 +21,19 @@ const Card = data => {
     <Page className="page-single">
       <Header />
       {postTitle && (
-        <Hero imageUrl={heroImageUrl} heroClass={heroClass}>
-          <h1 className="hero-title">{postTitle || heroTitle}</h1>
-        </Hero>
+        <header className="post-header">
+          <div className="container">
+            <h1 className="post-header__title">{postTitle || heroTitle}</h1>
+            {heroMessage && (
+              <p className="post-header__summary">{heroMessage}</p>
+            )}
+            {featuredImageUrl && (
+              <figure className="post-header__figure">
+                <img src={featuredImageUrl} alt={postTitle || ''} />
+              </figure>
+            )}
+          </div>
+        </header>
       )}
       <main>
         <div className="container main-container">

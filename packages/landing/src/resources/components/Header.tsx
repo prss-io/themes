@@ -15,9 +15,15 @@ const Header: FunctionComponent<IProps> = ({
   onScrollCallback,
   onResizeCallback
 }) => {
-  const { logoImageUrl } = PRSS.getProp('vars');
+  const { logoImageUrl, logoImageUrlLight } = PRSS.getProp('vars');
   const { title, url } = PRSS.getProp('site');
-  const currentPostId = PRSS.getProp('item').uuid;
+  const currentPost = PRSS.getProp('item');
+  const currentPostId = currentPost.uuid;
+
+  // Articles and pages have a white header, where a logo drawn for a dark hero
+  // would disappear.
+  const isLightHeader = ['post', 'page'].includes(currentPost.template);
+  const logoSrc = (isLightHeader && logoImageUrlLight) || logoImageUrl;
 
   const [scrollTop, setScrollTop] = useState(0);
   const [stickyEnabled, setStickyEnabled] = useState(false);
@@ -81,6 +87,7 @@ const Header: FunctionComponent<IProps> = ({
       <div
         className={cx('header-nav', {
           scrolled: stickyEnabled,
+          'header-nav--light': isLightHeader,
           'sticky-unset': stickyDisabled,
           'sticky-top': stickyEnabled || stickyDisabled
         })}
@@ -88,7 +95,7 @@ const Header: FunctionComponent<IProps> = ({
         <div className="container">
           <nav className="navbar navbar-expand-lg navbar-dark mx-2">
             <a className="navbar-brand logo" href={PRSS.getSiteUrl()}>
-              {logoImageUrl ? <img src={logoImageUrl} /> : title}
+              {logoSrc ? <img src={logoSrc} /> : title}
             </a>
             <button
               className="navbar-toggler"

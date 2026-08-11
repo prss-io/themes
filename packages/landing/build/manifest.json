@@ -13,6 +13,10 @@
       "type": "image",
       "description": "Path for the site logo"
     },
+    "logoImageUrlLight": {
+      "type": "image",
+      "description": "Logo used on pages with a light header (articles, guides). Falls back to the site logo."
+    },
     "featuredImageUrl": {
       "type": "image",
       "description": "Path for the post's featured image"
