@@ -1212,6 +1212,11 @@ html { scrollbar-gutter: stable; overflow-y: scroll; }
 :where(.docs-theme) :where(.docs-prose) li { margin: 6px 0; }
 :where(.docs-theme) :where(.docs-prose) li::marker { color: var(--text-faint); }
 
+/* Restore the markers a `menu, ol, ul { list-style: none }` reset strips. One class,
+   so page-supplied CSS still wins, but enough to outrank an element-only rule. */
+.docs-prose ul:not(.sc-menu) { list-style: disc outside; }
+.docs-prose ol { list-style: decimal outside; }
+
 /* Inline code */
 .docs-theme .docs-prose :not(pre) > code {
   font-family: var(--docs-mono);
@@ -1237,7 +1242,7 @@ html { scrollbar-gutter: stable; overflow-y: scroll; }
 }
 .docs-theme .docs-prose pre code {
   font-family: var(--docs-mono);
-  color: #cdd0e0;
+  color: var(--text);
   background: none;
   border: 0;
   padding: 0;
@@ -1276,7 +1281,6 @@ html { scrollbar-gutter: stable; overflow-y: scroll; }
   letter-spacing: 0.03em;
 }
 .docs-theme .docs-prose td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--text-muted); }
-.docs-theme .docs-prose tbody tr:last-child td { border-bottom: 0; }
 
 /* Callouts â€” refined tint */
 .docs-theme .docs-prose .callout {
@@ -1971,7 +1975,7 @@ html { scrollbar-gutter: stable; overflow-y: scroll; }
 }
 .docs-theme .docs-prose .link-list--inline .link-list-title { color: var(--text-muted); font-weight: 600; font-size: 17px; opacity: 1; }
 .docs-theme .docs-prose .link-list--inline .link-list-title::after { content: ":"; }
-.docs-theme .docs-prose .link-list-container .link-item {
+.docs-theme .docs-prose .link-list-container.link-list--inline .link-item {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1985,12 +1989,104 @@ html { scrollbar-gutter: stable; overflow-y: scroll; }
   font-size: 14px;
   transition: border-color 0.15s, background 0.15s, transform 0.15s;
 }
-.docs-theme .docs-prose .link-list-container .link-item .link-item-title { color: inherit; font-weight: 600; font-size: 14px; margin: 0; }
-.docs-theme .docs-prose .link-list-container .link-item:hover {
+.docs-theme .docs-prose .link-list-container.link-list--inline .link-item .link-item-title { color: inherit; font-weight: 600; font-size: 14px; margin: 0; }
+.docs-theme .docs-prose .link-list-container.link-list--inline .link-item:hover {
   color: var(--accent);
   border-color: var(--accent);
   background: var(--accent-soft);
   transform: translateY(-1px);
+}
+
+/* link-list block — two distinct looks depending on orientation, both unboxed
+   and theme-variable driven (no hardcoded colour fields, matches light/dark).
+   "grid": a feature-grid of independent soft cards (icon above title), like
+   the feature grid on prss.co itself. "list": a single-column stack of
+   full-width rows (icon beside title) — the shape an FAQ actually reads as;
+   a grid of square buttons never fits a list of questions. */
+.docs-theme .docs-prose .link-list-container:not(.link-list--inline) .link-list-header { margin-bottom: 20px; }
+.docs-theme .docs-prose .link-list-container:not(.link-list--inline) .link-list-header:empty { display: none; }
+.docs-theme .docs-prose .link-list-title { color: var(--text); font-weight: 700; font-size: 20px; }
+.docs-theme .docs-prose .link-list-title:empty { display: none; }
+.docs-theme .docs-prose .link-list-description { color: var(--text-muted); font-size: 14.5px; margin-top: 6px; }
+
+.docs-theme .docs-prose .link-list-content--grid,
+.docs-theme .docs-prose .link-list-content--list {
+  display: grid;
+  gap: 16px;
+}
+.docs-theme .docs-prose .link-list-content--grid { grid-template-columns: repeat(2, 1fr); }
+.docs-theme .docs-prose .link-list-content--list { grid-template-columns: 1fr; gap: 8px; }
+
+.docs-theme .docs-prose .link-list-content--grid .link-item,
+.docs-theme .docs-prose .link-list-content--list .link-item {
+  display: flex;
+  border-radius: var(--docs-radius);
+  background: var(--bg-elevated);
+  /* Explicit on all four sides: `.docs-prose a` sets its own border-bottom
+     (the inline-link hover underline) and would otherwise leave this edge
+     looking different from the other three. */
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--border);
+  color: var(--text);
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s, background 0.15s;
+}
+.docs-theme .docs-prose .link-list-content--grid .link-item { padding: 24px; }
+.docs-theme .docs-prose .link-list-content--list .link-item { padding: 14px 18px; }
+
+.docs-theme .docs-prose .link-list-content--grid .link-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+.docs-theme .docs-prose .link-list-content--list .link-item:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.docs-theme .docs-prose .link-list-content--grid .link-item-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  width: 100%;
+}
+.docs-theme .docs-prose .link-list-content--list .link-item-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+}
+
+.docs-theme .docs-prose .link-list-content--grid .link-item-icon,
+.docs-theme .docs-prose .link-list-content--list .link-item-icon {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: var(--bg);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  color: var(--accent);
+}
+.docs-theme .docs-prose .link-list-content--grid .link-item-icon i,
+.docs-theme .docs-prose .link-list-content--list .link-item-icon i { font-size: 16px; }
+
+.docs-theme .docs-prose .link-list-content--grid .link-item-text,
+.docs-theme .docs-prose .link-list-content--list .link-item-text { flex: 1; min-width: 0; }
+.docs-theme .docs-prose .link-list-content--grid .link-item-title,
+.docs-theme .docs-prose .link-list-content--list .link-item-title { color: inherit; font-weight: 700; }
+.docs-theme .docs-prose .link-list-content--grid .link-item-title { font-size: 16px; margin: 0 0 6px; }
+.docs-theme .docs-prose .link-list-content--list .link-item-title { font-size: 15px; margin: 0; }
+.docs-theme .docs-prose .link-list-content--grid .link-item-description,
+.docs-theme .docs-prose .link-list-content--list .link-item-description { color: var(--text-muted); font-size: 14px; line-height: 1.55; margin: 0; }
+.docs-theme .docs-prose .link-list-content--list .link-item-description { margin-top: 2px; }
+
+@media (max-width: 640px) {
+  .docs-theme .docs-prose .link-list-content--grid { grid-template-columns: 1fr; }
 }
 
 /* ======================= Polish pass 3 (reported issues) ======================= */
@@ -2037,6 +2133,12 @@ html { scrollbar-gutter: stable; overflow-y: scroll; }
 .docs-theme .docs-prose th { min-width: 0; word-break: break-word; height: auto !important; }
 .docs-theme .docs-prose td[style*="width"],
 .docs-theme .docs-prose table[style*="width"] { width: auto !important; }
+
+/* Reference tables (name | description) shouldn't wrap the short first column into
+   several lines just to make room for the prose column — shrink it to its content
+   and let the description column absorb the remaining width instead. */
+.docs-theme .docs-prose td:first-child,
+.docs-theme .docs-prose th:first-child { width: 1%; white-space: nowrap; word-break: normal; }
 
 /* #2 Widget iframes must be transparent so they don't punch white holes in dark. */
 .docs-theme iframe { background: transparent; }
