@@ -67,6 +67,32 @@ const initSidebar = () => {
   }
 };
 
+/* ---- Sidebar: bring the current page's entry into view ---- */
+const initSidebarActiveItem = () => {
+  const rail = document.querySelector<HTMLElement>(".docs-sidebar");
+  if (!rail) return;
+
+  const active =
+    rail.querySelector<HTMLElement>(".docs-nav-item.is-active") ||
+    rail.querySelector<HTMLElement>(".is-active");
+  if (!active) return;
+
+  if (rail.scrollHeight <= rail.clientHeight) return;
+
+  const railBox = rail.getBoundingClientRect();
+  const itemBox = active.getBoundingClientRect();
+  const offsetInRail = itemBox.top - railBox.top;
+
+  // Already comfortably in view — leave the rail alone.
+  const margin = 24;
+  if (offsetInRail >= margin && offsetInRail + itemBox.height <= rail.clientHeight - margin) {
+    return;
+  }
+
+  // scrollIntoView would scroll the page as well, so move only the rail.
+  rail.scrollTop += offsetInRail - (rail.clientHeight - itemBox.height) / 2;
+};
+
 /* ---- Copy buttons on code blocks ---- */
 const initCodeCopy = () => {
   const blocks = document.querySelectorAll<HTMLElement>(".docs-prose pre");
@@ -592,6 +618,7 @@ const initRailScrollbars = () => {
 ready(() => {
   initThemeToggle();
   initSidebar();
+  initSidebarActiveItem();
   initRailScrollbars();
   initCodeCopy();
   initBlockCopy();
@@ -607,4 +634,4 @@ ready(() => {
   initHeroParallax();
 });
 
-(window as any).PRSSDocsTheme = { initCodeCopy, initBlockCopy, initToc, initCarbonAd, initAsidePlacement, initHeroParallax, initSearch, initBackLink, initEditor, initDemoList, initRailScrollbars };
+(window as any).PRSSDocsTheme = { initCodeCopy, initBlockCopy, initToc, initCarbonAd, initAsidePlacement, initHeroParallax, initSearch, initBackLink, initEditor, initDemoList, initRailScrollbars, initSidebarActiveItem };
