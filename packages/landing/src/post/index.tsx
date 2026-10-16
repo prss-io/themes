@@ -72,8 +72,7 @@ const Post = data => {
                     </a>
                   ) : (
                     featuredImageAuthor
-                  )}{' '}
-                  via Pexels
+                  )}
                 </figcaption>
               )}
             </figure>

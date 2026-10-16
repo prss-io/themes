@@ -73,7 +73,7 @@ const Post = data => {
                         <span>
                           Photo by{' '}
                           <a href={featuredImageAuthorLink} target="_blank">
-                            {featuredImageAuthor} via Pexels
+                            {featuredImageAuthor}
                           </a>
                         </span>
                       </div>

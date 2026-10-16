@@ -61,7 +61,7 @@ const Post = data => {
                       <span>
                         Photo by{" "}
                         <a href={featuredImageAuthorLink} target="_blank" rel="noreferrer" className="text-white hover:underline">
-                          {featuredImageAuthor} via Pexels
+                          {featuredImageAuthor}
                         </a>
                       </span>
                     </div>

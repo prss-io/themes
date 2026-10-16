@@ -81,7 +81,7 @@ const Post = data => {
                       <div
                         className="featured-image-author mt-3 date post-date d-flex align-items-center"
                       >
-                        <span>Photo by{' '}<a href={featuredImageAuthorLink} target="_blank">{featuredImageAuthor} via Pexels</a></span>
+                        <span>Photo by{' '}<a href={featuredImageAuthorLink} target="_blank">{featuredImageAuthor}</a></span>
                       </div>
                     )}
                   </div>

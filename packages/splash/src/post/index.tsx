@@ -44,7 +44,7 @@ const Post = data => {
                 </span>
                 <span>•</span>
                 <span className="text-gray-500">
-                  Photo by{" "} <a href={featuredImageAuthorLink} target="_blank" rel="noreferrer" className="hover:underline">{featuredImageAuthor} via Pexels</a>
+                  Photo by{" "} <a href={featuredImageAuthorLink} target="_blank" rel="noreferrer" className="hover:underline">{featuredImageAuthor}</a>
                 </span>
               </div>
               
