@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * Builds every theme package and assembles the publishable tree.
+ * Builds supported SSR theme packages and assembles static distribution artifacts.
  *
  * Each theme keeps its own toolchain (they span webpack 4 to 5 and React 16 to
  * 18), so each is built in its own workspace and its output is copied to
@@ -21,14 +21,20 @@ const outDir = path.join(root, "build");
 const listThemes = () =>
   fs
     .readdirSync(packagesDir)
-    .filter((name) => !name.startsWith("_"))
+    .filter((name) => name !== "blank" && !name.startsWith("_"))
     .filter((name) => fs.existsSync(path.join(packagesDir, name, "package.json")));
+
+const requireSSR = (theme, manifestPath) => {
+  if (!fs.existsSync(manifestPath) || fs.readJsonSync(manifestPath).isSSR !== true) {
+    throw new Error(`${theme}: manifest must declare isSSR: true for static distribution`);
+  }
+};
 
 const buildTheme = (theme) => {
   const cwd = path.join(packagesDir, theme);
   const pkg = fs.readJsonSync(path.join(cwd, "package.json"));
 
-  // The blank starter ships hand-written templates and has nothing to compile.
+  // A theme may ship prebuilt SSR templates without a compilation step.
   if (!pkg.scripts || !pkg.scripts.build) {
     process.stdout.write(`  ${theme} ... prebuilt\n`);
     return;
@@ -65,6 +71,8 @@ const collect = (theme) => {
     throw new Error(`${theme} produced no build/ output`);
   }
 
+  requireSSR(theme, path.join(from, "manifest.json"));
+
   const to = path.join(outDir, theme);
   fs.copySync(from, to, { filter: (src) => !src.endsWith(".map") });
 
@@ -80,15 +88,22 @@ const collect = (theme) => {
 };
 
 const start = () => {
-  const only = process.argv.includes("--theme")
-    ? process.argv[process.argv.indexOf("--theme") + 1]
-    : null;
+  const themeArg = process.argv.indexOf("--theme");
+  const only = themeArg === -1 ? null : process.argv[themeArg + 1];
+  const available = listThemes();
 
-  const themes = only ? [only] : listThemes();
-  if (only && !fs.existsSync(path.join(packagesDir, only))) {
-    throw new Error(`Unknown theme "${only}"`);
+  if (themeArg !== -1 && (!only || !available.includes(only))) {
+    throw new Error(`Unknown or unsupported theme "${only || ""}"; select a supported SSR theme`);
   }
 
+  const themes = only ? [only] : available;
+  // Validate source manifests before compiling or changing the artifact tree.
+  themes.forEach((theme) =>
+    requireSSR(theme, path.join(packagesDir, theme, "public", "manifest.json"))
+  );
+
+  // Never retain the archived non-SSR starter, even during a partial build.
+  fs.removeSync(path.join(outDir, "blank"));
   // A partial build must not wipe the other themes out of the published tree.
   if (only) fs.removeSync(path.join(outDir, only));
   else fs.emptyDirSync(outDir);

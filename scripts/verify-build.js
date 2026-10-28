@@ -10,6 +10,8 @@
  * It also type-checks nothing — babel-loader strips types without resolving
  * names — so an undefined identifier used to reach the CDN and throw at render
  * time. `checkSourceGlobals` closes that hole.
+ *
+ * Keep this file in sync across the free and premium theme repositories.
  */
 
 const fs = require("fs-extra");
@@ -24,7 +26,7 @@ const problems = [];
 
 /**
  * Globals a theme may legitimately reach for. Everything else in theme source is
- * an import or a local, so an unresolved name is a bug — `@prss/themes@1.1.0`
+ * an import or a local, so an unresolved name is a bug — the docs theme once
  * shipped `content={body}`, which built cleanly and then threw for every page
  * using that template, deploying sites with the page silently missing.
  */
@@ -131,8 +133,10 @@ const start = () => {
     throw new Error("build/ does not exist — run npm run build first");
   }
 
+  // Older local builds may still contain the archived non-SSR starter.
+  // It is not a release artifact; build-all removes it when assembling output.
   const themes = fs.readdirSync(outDir).filter((name) =>
-    fs.statSync(path.join(outDir, name)).isDirectory()
+    name !== "blank" && fs.statSync(path.join(outDir, name)).isDirectory()
   );
 
   if (!themes.length) throw new Error("build/ contains no themes");
@@ -150,6 +154,9 @@ const start = () => {
     }
 
     const manifest = fs.readJsonSync(manifestPath);
+    if (manifest.isSSR !== true) {
+      problems.push(`${theme}: manifest must declare isSSR: true for static distribution`);
+    }
     check(theme, "index.html");
     // thumbnail.png is optional — PRSS draws a generated cover when it 404s.
     if (manifest.combinedCSS) check(theme, "theme.css");

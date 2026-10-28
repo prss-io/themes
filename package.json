@@ -1,7 +1,8 @@
 {
   "name": "@prss/themes",
   "version": "1.2.3",
-  "description": "Official PRSS themes, published as a single package served over CDN.",
+  "description": "Official PRSS SSR themes compiled as static distribution artifacts.",
+  "private": true,
   "license": "MIT",
   "author": "Francisco Hodge <hello@franciscohodge.com> (https://github.com/hodgef)",
   "homepage": "https://github.com/prss-io/themes",
@@ -26,6 +27,7 @@
     "build": "node scripts/build-all.js",
     "build:theme": "node scripts/build-all.js --theme",
     "verify": "node scripts/verify-build.js",
-    "prepublishOnly": "npm run build && npm run verify"
+    "release:check": "npm run build && npm run verify",
+    "prepublishOnly": "node -e \"console.error('npm publishing is disabled. Distribute compiled static artifacts instead.'); process.exit(1);\""
   }
 }

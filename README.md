@@ -1,11 +1,12 @@
 # PRSS themes
 
-The official PRSS themes, developed in one repo and published as a single npm
-package, `@prss/themes`.
+The official PRSS SSR themes, developed in one repo and compiled as static
+distribution artifacts. The root npm workspace is private: npm publishing is
+disabled, and npm is used only for dependency management and build commands.
 
 PRSS resolves a theme against a base URL handed to it by the API, and fetches
 `manifest.json`, `index.html`, `theme.css`, `client.js` and one `<template>.js`
-per template relative to it. The published package mirrors that layout:
+per template relative to it. The artifact tree mirrors that layout:
 
 ```
 build/
@@ -13,7 +14,8 @@ build/
   slate/{...}
 ```
 
-so the API points a theme at `.../@prss/themes@<version>/build/<theme>`.
+Each theme's base URL points at its directory in the hosted artifact tree,
+independently of npm package URLs.
 
 ## Layout
 
@@ -23,8 +25,8 @@ packages/
   vantage/     one workspace per theme, each with its own build toolchain
   ...
 scripts/
-  build-all.js   builds every theme and assembles build/
-  verify-build.js  checks each theme ships the files PRSS will ask for
+  build-all.js   builds supported SSR themes and assembles build/
+  verify-build.js  checks SSR manifests, source globals and required files
 ```
 
 Themes span webpack 4 to 5 and React 16 to 18, so each keeps its own
@@ -43,7 +45,15 @@ npm install                       # once, at the repo root
 npm run build:theme -- vantage    # build one theme
 npm run build                     # build all themes and assemble build/
 npm run verify                    # check the published layout is complete
+npm run release:check             # build + verify; does not upload artifacts
 ```
+
+All distributed themes must declare `isSSR: true` in their source and compiled
+manifests. The legacy `packages/blank` source is archived and excluded from
+discovery and explicit single-theme builds; use `blank-ssr` instead. Assembly
+removes stale `build/blank` output, including during partial builds. Verification
+ignores that legacy directory in older local build trees; do not distribute it.
+Run the full release check before distributing a fresh artifact tree.
 
 Each theme's own `build/` is committed. PRSS's theme creator clones a single
 theme with a sparse checkout and reads `build/manifest.json` immediately, so a
@@ -59,6 +69,6 @@ previous build exactly.
 
 ## Premium themes
 
-Paid themes live in a separate private repo and publish as
-`@prss/premium-themes`. They are not forkable through the theme creator, which
-filters them out of the base-theme list.
+Paid themes are maintained separately and distributed as compiled static
+artifacts with the same layout. They are not forkable through the theme creator,
+which filters them out of the base-theme list.
